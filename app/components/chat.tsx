@@ -51,7 +51,7 @@ const ChatComponent: React.FC = () => {
 
       setMessages((prev) => [...prev, assistantMsg]);
     } catch (e) {
-      if(e) console.log("error coming")
+      console.error("Error while fetching response:", e);
       setMessages((prev) => [
         ...prev,
         {
@@ -119,6 +119,11 @@ const ChatComponent: React.FC = () => {
         <Button
           onClick={handleSendChatMessage}
           disabled={!message.trim() || loading}
+          className={`transition ${
+            message.trim() && !loading
+              ? "bg-black text-white hover:bg-gray-900"
+              : "bg-gray-300 text-gray-600 cursor-not-allowed"
+          }`}
         >
           {loading ? "Sending..." : "Send"}
         </Button>
