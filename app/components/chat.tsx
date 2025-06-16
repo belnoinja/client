@@ -89,20 +89,24 @@ const ChatComponent: React.FC = () => {
           >
             {msg.content}
             {msg.role === "assistant" &&
-              Array.isArray(msg.documents) &&
-              msg.documents.length > 0 && (
-                <details className="mt-2 text-xs text-gray-600">
-                  <summary className="cursor-pointer">Context</summary>
-                  {msg.documents.map((doc, i) => (
-                    <div key={i} className="mt-1 border-b pb-2 mb-2">
-                      <div>Page: {doc.metadata?.loc?.pageNumber ?? "N/A"}</div>
-                      <div className="text-gray-500">
-                        {doc.pageContent?.slice(0, 200)}...
-                      </div>
-                    </div>
-                  ))}
-                </details>
-              )}
+  Array.isArray(msg.documents) &&
+  msg.documents.length > 0 && (
+    <details className="mt-3 text-xs text-gray-600 bg-gray-100 dark:bg-gray-800 rounded-md p-2">
+      <summary className="cursor-pointer text-blue-600 hover:underline">
+        📄 Show Sources
+      </summary>
+      <div className="mt-2 space-y-3">
+        {msg.documents.map((doc, i) => (
+          <div key={i} className="border-b pb-2 mb-2">
+            <div className="font-medium">Page: {doc.metadata?.loc?.pageNumber ?? "N/A"}</div>
+            <div className="text-gray-500 dark:text-gray-300">
+              {doc.pageContent?.slice(0, 300)}...
+            </div>
+          </div>
+        ))}
+      </div>
+    </details>
+  )}
           </div>
         ))}
       </div>
